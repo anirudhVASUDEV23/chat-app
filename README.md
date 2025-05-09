@@ -56,24 +56,5 @@ A fully functional, beautifully styled **real-time chat application** built usin
   - Server-side and client-side validation
   - Toast notifications and proper status codes
 
-- 🚀 **Deployment**
-  - Frontend deployed on **Vercel**
-  - Backend deployed on **Render**
-
 ---
 
-## 📸 Preview
-
-> *Consider adding screenshots or a screen recording GIF here to showcase the app UI and real-time features.*
-
----
-
-## ⚙️ Getting Started
-
-Follow these instructions to get a local copy up and running.
-
-### 📁 Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/realtime-chat-app.git
-cd realtime-chat-app
