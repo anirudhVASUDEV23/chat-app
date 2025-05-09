@@ -22,7 +22,7 @@ app.use(express.json({ limit: "20mb" }));
 app.use(express.urlencoded({ extended: true, limit: "20mb" }));
 dotenv.config();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5002;
 const __dirname = path.resolve();
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);

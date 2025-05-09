@@ -51,26 +51,30 @@ export const sendMessage = async (req, res) => {
 
     let imageUrl;
     if (image) {
-      //Upload base64 image to cloudinary and get the URL
       const uploadResponse = await cloudinary.uploader.upload(image);
       imageUrl = uploadResponse.secure_url;
     }
 
     const newMessage = await Messages.create({
-      senderId: senderId,
-      receiverId: receiverId,
+      senderId,
+      receiverId,
       text: text || "",
       image: imageUrl || "",
     });
+
     if (!newMessage) {
       return res.status(500).json({ message: "Unable to send message" });
     }
+
     const savedMessage = await newMessage.save();
 
-    //todo:Real Time functionality=>socket.io
+    // Real-time delivery
     const receiverSocketId = getReceiversSocketId(receiverId);
     if (receiverSocketId) {
+      console.log("Sending real-time message to:", receiverSocketId);
       io.to(receiverSocketId).emit("newMessage", savedMessage);
+    } else {
+      console.log("No socket found for receiver:", receiverId);
     }
 
     res.status(201).json(savedMessage);

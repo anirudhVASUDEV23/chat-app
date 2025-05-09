@@ -49,14 +49,22 @@ export const useChatStore = create((set, get) => ({
 
   subscribeToMessages: () => {
     const { selectedUser } = get();
-    if (!selectedUser) return;
     const socket = useAuthStore.getState().socket;
 
+    console.log("Subscribing to new messages. Socket:", socket); // 👈 Add this
+
+    if (!selectedUser || !socket) return;
+
     socket.on("newMessage", (newMessage) => {
+      console.log("New message received", newMessage); // 👈 This should print if it works
+
       const isMessageSentFromSelectedUser =
         newMessage.senderId === selectedUser._id;
-      if (isMessageSentFromSelectedUser) return; // makes sure that the message is not sent from the user that we are currently chatting with
-      set({ messages: [...get().messages, newMessage] }); //real time functionality
+      console.log("Debugging");
+      if (!isMessageSentFromSelectedUser) return;
+      console.log("Debugging Check");
+      console.log("Setting new message");
+      set({ messages: [...get().messages, newMessage] });
     });
   },
 
